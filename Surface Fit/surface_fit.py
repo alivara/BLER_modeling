@@ -157,29 +157,31 @@ class fit_func:
         find the best fit for the data distribution to get the sigma and
         the mean of the data
         '''
-        sns.set_style('white')
-        sns.set_context("paper", font_scale = 2)
-        sns.displot(data=final[[dataset_name]], kind="hist", bins = 1000, aspect = 1.5)
+        # sns.set_style('white')
+        # sns.set_context("paper", font_scale = 2)
+        # sns.displot(data=final[[dataset_name]], kind="hist", bins = 1000, aspect = 1.5)
 
         BLER = final[[dataset_name]].values
         f = Fitter(BLER,distributions=['gamma','lognorm',"beta","burr","norm"])
 
         f.fit()
         print(f.summary())
-        best_dist_fit = f.get_best(method = 'sumsquare_error')
-        key, value = best_fit.items()
-        if key == 'lognorm':
-            print("best fit is {}".format(key))
-            for k, v in value.items():
-                if k == 's':
-                    s = v
-                if k == 'loc':
-                    loc = v
-                if k == 'scale':
-                    scale = v
+        best_fit = f.get_best(method = 'sumsquare_error')
+        # key = best_fit.keys()
+        # key, value = best_fit.items()
+        if best_fit.keys() == 'lognorm':
+            for key, value in best_fit.items():
+                print("best fit is {}".format(key))
+                for k, v in value.items():
+                    if k == 's':
+                        s = v
+                    if k == 'loc':
+                        loc = v
+                    if k == 'scale':
+                        scale = v
             sigma = s
-            mesn = scipy.stats.lognorm.mean(s, loc=loc, scale=scale)
-            return best_fit, sigma, mean
+            mean_1 = scipy.stats.lognorm.mean(s, loc=loc, scale=scale)
+            print(best_fit, sigma, mean_1)
 
     def ScatterPlot(self,data):
         '''
@@ -301,7 +303,7 @@ class fit_func:
         while loop:
 
             # getting mean and sigma of data
-            best_fit, sigma, mean = self.dist_plot(dataset_name)
+            self.dist_plot(self.dataset_name)
 
             initialParameters = [.0001, .0001, 0 , 6]
             # here a non-linear surface fit is made with scipy's curve_fit()
@@ -342,13 +344,14 @@ if __name__ == "__main__":
 
     # this loops will only consider the p = 50
     for i in range(2,len(final.columns),4):
+        # A0 is the location of the gNodeB for the exact data
+        A0 = gNodeB_Loc[int(abs(i/4)),:]
+
         print("\n calculating fit for gNodeB location: {} and data: {} ".format(A0,final.columns[i]))
-        best_fit, sigma, mean = dist_plot(self, data)
+
         z = np.array(final[final.columns[i]])
         data = [x, y, z]
 
-        # A0 is the location of the gNodeB for the exact data
-        A0 = gNodeB_Loc[int(abs(i/4)),:]
 
         # defining model
         model = fit_func(final.columns[i],data,A0)
