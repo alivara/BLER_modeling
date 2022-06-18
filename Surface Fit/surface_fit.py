@@ -181,7 +181,7 @@ class fit_func:
                         scale = v
             sigma = s
             mean_1 = scipy.stats.lognorm.mean(s, loc=loc, scale=scale)
-            print(best_fit, sigma, mean_1)
+            print("\n Best Fit on distribution: {} | sigma: {} | mean: {} ".format(best_fit, sigma, mean_1))
 
     def ScatterPlot(self,data):
         '''
@@ -196,7 +196,7 @@ class fit_func:
         z_data = data[2]
 
         axes.scatter(x_data, y_data, z_data)
-        axes.set_title('Scatter Plot for {} Data'.format(2))
+        axes.set_title('Scatter Plot for {} Data'.format(self.dataset_name))
         axes.set_xlabel('X Data')
         axes.set_ylabel('Y Data')
         axes.set_zlabel('BLER Data')
@@ -231,7 +231,7 @@ class fit_func:
 
         axes.scatter(x_data, y_data, z_data) # show data along with plotted surface
 
-        axes.set_title('Surface Plot for {} Data and the Fit Surface'.format(2)) # add a title for surface plot
+        axes.set_title('Surface Plot for {} Data and the Fit Surface'.format(self.dataset_name)) # add a title for surface plot
         axes.set_xlabel('X Data') # X axis data label
         axes.set_ylabel('Y Data') # Y axis data label
         axes.set_zlabel('BLER') # Z axis data label
@@ -261,7 +261,7 @@ class fit_func:
 
         axes.plot(x_data, y_data, 'o')
 
-        axes.set_title('Contour Plot for {} Data and shows the zone of BLERs'.format(2)) # add a title for contour plot
+        axes.set_title('Contour Plot for {} Data and shows the zone of BLERs'.format(self.dataset_name)) # add a title for contour plot
         axes.set_xlabel('X Data') # X axis data label
         axes.set_ylabel('Y Data') # Y axis data label
 
