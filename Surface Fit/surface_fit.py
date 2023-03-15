@@ -20,7 +20,7 @@ print("This finds our json files")
 loop = True
 while loop:
 #     path_to_json = str(input("Directory of Json files (which should starts and ends with /): "))
-    path_to_json = '/Users/alivarastehranjbar/Documents/untitledfolder/Python/TNT-Lab/CTN_results/'
+    path_to_json = './results/'
     # Store the in List called: json_files
     try:
         # Store the in List called: json_files
@@ -31,10 +31,6 @@ while loop:
 
     if len(json_files) != 0:
         loop = False
-
-# for me: '/Users/alivarastehranjbar/Documents/untitledfolder/Python/TNT-Lab/CTN_results/'
-#/Users/alivarastehranjbar/Documents/untitledfolder/Python/TNT-Lab/CTN_results/
-
 
 
 # Here I define a list to store each json file as a DataFrame in a list
@@ -126,11 +122,6 @@ if sort_colors is True:
 else:
     names = list(colors)
 
-
-
-
-##------------------------------------------------------------------------------
-# Finding the best Fit for DataFrame
 
 # 3D contour plot lines
 numberOfContourLines = 16
